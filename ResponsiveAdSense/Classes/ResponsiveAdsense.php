@@ -48,6 +48,6 @@ class ResponsiveAdSense {
 	}
 
 	public function setAdElement($class) {
-		$this->templateStack[] = '<div style="border:1px solid red;" id="'.$class.'"></div>';
+		$this->templateStack[] = '<div id="'.$class.'"></div>';
 	}
 } 
