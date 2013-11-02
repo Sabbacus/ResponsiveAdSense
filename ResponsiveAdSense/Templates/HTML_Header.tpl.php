@@ -9,4 +9,4 @@
 
 </head>
 <body>
-	<div style="width:1200px;">
+	<div style="">
