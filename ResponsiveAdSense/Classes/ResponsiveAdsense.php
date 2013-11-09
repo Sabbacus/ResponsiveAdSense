@@ -11,6 +11,7 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 
 	private $adClient;
 	private $adSpot;
+	private $adElement;
 
 	private $templateStack;
 	private $templateDir 	= "Templates/";
@@ -18,7 +19,7 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 	private $adCounter = 0;
 
 	// If you are running PHP 5.2 and below, uncomment this code.
-
+	/*
 	protected static $instance;
 
 	// protected so no one else can instance it
@@ -42,6 +43,7 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 		throw new Exception("Cannot unserialize singleton");
 	}
 	// Only needed for PHP 5.2
+	*/
 
 
 	public function loadTemplate($template="AdSense.tpl.php") {
@@ -54,6 +56,7 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 	private function parseTemplate($templateData) {
 		$templateData = str_replace("{adClient}", $this->adClient, $templateData);
 		$templateData = str_replace("{adSpot}", $this->adSpot, $templateData);
+		$templateData = str_replace("{adElement}", $this->adElement, $templateData);
 
 		return $templateData;
 	}
@@ -61,10 +64,10 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 	public function setAdElement($class=false, $useDefaultTemplate=true) {
 		if ($class === false) {
 			$this->adCounter++;
-			$class = "google-ads-".$this->adCounter;
+			$this->adElement = "google-ads-".$this->adCounter;
 		}
 
-		$this->templateStack[] = '<div id="'.$class.'"></div>';
+		$this->templateStack[$this->adElement] = '<div id="'.$this->adElement.'"></div>';
 
 		if ($useDefaultTemplate) {
 			$this->loadTemplate();
@@ -86,9 +89,9 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 
 	public function __toString() {
 
-		$this->loadTemplate("HTML_Header.tpl.php");
+		#$this->loadTemplate("HTML_Header.tpl.php");
 		$this->setAdElement();
-		$this->loadTemplate("HTML_Footer.tpl.php");
+		#$this->loadTemplate("HTML_Footer.tpl.php");
 
 		return $this->output();
 	}
@@ -102,6 +105,7 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 			"adClient",
 			"adSpot",
 			"templateDir",
+			"adElement",
 		);
 		if (in_array($name, $allowed)) {
 			$this->$name = $value;

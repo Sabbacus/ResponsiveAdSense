@@ -11,15 +11,15 @@ $adSense 	= ResponsiveAdSense::init("ca-pub-3677047087164792", "4842057069");
 $adSense->loadTemplate("HTML_Header.tpl.php");
 
 $adSense->setAdElement();
-$adSense->loadTemplate();
+#$adSense->loadTemplate();
 
 $anotherAdSense = ResponsiveAdSense::init("ca-pub-3677047087164792", "4842057069");
 $anotherAdSense->setAdElement();
-$anotherAdSense->loadTemplate();
+#$anotherAdSense->loadTemplate();
 
 $thirdSense = ResponsiveAdSense::init("ca-pub-3677047087164792", "4842057069");
 $thirdSense->setAdElement();
-$thirdSense->loadTemplate();
+#$thirdSense->loadTemplate();
 
 // Only here for displaying valid HTML code
 $adSense->loadTemplate("HTML_Footer.tpl.php");
