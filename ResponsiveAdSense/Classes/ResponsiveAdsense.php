@@ -48,7 +48,7 @@ class ResponsiveAdSense extends Responsive_AdSense_Master {
 
 	public function loadTemplate($template="AdSense.tpl.php") {
 
-		$data = file_get_contents($_SERVER["DOCUMENT_ROOT"]."/ResponsiveAdSense/".$this->templateDir.$template);
+		$data = file_get_contents(RESPONSIVE_ADSENSE_PATH.$this->templateDir.$template);
 
 		$this->templateStack[] = $this->parseTemplate($data);
 	}
