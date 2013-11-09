@@ -4,46 +4,48 @@ class AutoLoader {
 	static private $traits = false;
 	static private $lateStaticBinding = false;
 
-	public static function classes($class) {
-		$path = array();
-		$dir = "Classes/";
-		$class = $class.".php";
+	const CLASS_DIR 	= "Classes/";
+	const TRAITS_DIR 	= "Traits/";
 
-		$path[] = $dir.$class;
-		$path[] = $_SERVER["DOCUMENT_ROOT"]."/ResponsiveAdSense/".$dir.$class;
+	public static function classes($class) {
+		$path 	= array();
+		$class 	= $class.".php";
+
+		$path[] = self::CLASS_DIR.$class;
+		$path[] = RESPONSIVE_ADSENSE_PATH.self::CLASS_DIR.$class;
 
 		return self::checkDir($path);
 	}
 
 	public static function classes_php52($class) {
-		$path = array();
-		$dir = "Classes/php52/";
-		$class = $class.".php";
+		$path 	= array();
+		$dir 	= self::CLASS_DIR."php52/";
+		$class 	= $class.".php";
 
 		$path[] = $dir.$class;
-		$path[] = $_SERVER["DOCUMENT_ROOT"]."/ResponsiveAdSense/".$dir.$class;
+		$path[] = RESPONSIVE_ADSENSE_PATH.$dir.$class;
 
 		return self::checkDir($path);
 	}
 
 	public static function classes_php53($class) {
-		$path = array();
-		$dir = "Classes/php53/";
-		$class = $class.".php";
+		$path 	= array();
+		$dir 	= self::CLASS_DIR."php53/";
+		$class 	= $class.".php";
 
 		$path[] = $dir.$class;
-		$path[] = $_SERVER["DOCUMENT_ROOT"]."/ResponsiveAdSense/".$dir.$class;
+		$path[] = RESPONSIVE_ADSENSE_PATH.$dir.$class;
 
 		return self::checkDir($path);
 	}
 
 	public static function classes_php54($class) {
-		$path = array();
-		$dir = "Classes/php54/";
-		$class = $class.".php";
+		$path 	= array();
+		$dir 	= self::CLASS_DIR."php54/";
+		$class 	= $class.".php";
 
 		$path[] = $dir.$class;
-		$path[] = $_SERVER["DOCUMENT_ROOT"]."/ResponsiveAdSense/".$dir.$class;
+		$path[] = RESPONSIVE_ADSENSE_PATH.$dir.$class;
 
 		return self::checkDir($path);
 	}
@@ -54,30 +56,33 @@ class AutoLoader {
 				require_once $dirPath;
 				return true;
 			} else {
-				#echo "No such trait in $dirPath<br>";
+				#echo "No such class/trait in $dirPath<br>";
 			}
 		}
 		return false;
 	}
 
 	public static function traits($trait) {
-		$path = array();
-		$dir = "Traits/";
-		$trait = $trait.".php";
+		$path 	= array();
+		$trait 	= $trait.".php";
 
-		$path[] = $dir.$trait;
-		$path[] = $_SERVER["DOCUMENT_ROOT"]."/ResponsiveAdSense/".$dir.$trait;
+		$path[] = self::TRAITS_DIR.$trait;
+		$path[] = RESPONSIVE_ADSENSE_PATH.self::TRAITS_DIR.$trait;
 
 		return self::checkDir($path);
 	}
 
 	public static function setAutoLoaders() {
+		// Fallback for lazy people.
+		if (!defined("RESPONSIVE_ADSENSE_CONFIG_LOADED") && file_exists("../config.php")) {
+			require_once "../config.php";
+		}
 		$phpVer = phpversion();
 
 		if (version_compare($phpVer, "5.4.0") >= 0) {
 			self::$traits = true;
 			self::$lateStaticBinding = true;
-		} elseif (version_compare($phpVer, "5.3.0")) {
+		} elseif (version_compare($phpVer, "5.3.0") >= 0) {
 			self::$lateStaticBinding = true;
 		}
 
